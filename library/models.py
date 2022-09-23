@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 class Author(models.Model):
 	name = models.CharField(max_length=100)
@@ -44,6 +45,9 @@ class Book(models.Model):
 	def get_absolute_url(self):
 		return reverse("library:detail", kwargs={'slug' : self.slug })
 
+	def save(self, *args, **kwargs):
+		if not self.id:
+			self.slug = slugify(self.title)
 
 	def __str__(self):
 		return self.title

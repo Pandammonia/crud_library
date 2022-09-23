@@ -8,7 +8,7 @@
 </head>
 <body>
 	{% block content %}
-	<h1 class="one"> HEADER </h1>
+	<h2>Add a book</h2>
 	<form method = "POST" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{ form.as_p }}
