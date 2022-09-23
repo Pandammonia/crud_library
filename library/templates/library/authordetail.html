@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% extends 'library/base.html' %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	{% block content %}
+	<h1>{{author.name}}</h1>
+	<h3>Other books by this author:</h3>
+	{% if books %}
+	{% for book in books %}
+	<a href="{% url 'library:detail' book.id %}">{{book.title}}:</a> Year: {{book.written}}<br>
+	{% endfor %}
+	{% else %}
+	No books written by this author have been added yet!
+	{% endif %}
+	{% endblock content %}
+</body>
+</html>

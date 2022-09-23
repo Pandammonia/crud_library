@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% extends 'library/base.html' %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	{% block content %}
+	<p>
+	<h1>{{book.title}}</h1>
+	{{book.title}} by {{book.author}}<br><br> 	
+
+	<a href="{% url 'library:index' %}">Return to home page</a>
+</p>
+	{% endblock content %}
+</body>
+</html>

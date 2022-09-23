@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% extends 'library/base.html' %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home</title>
+</head>
+<body>
+	{% block content %}
+	<div style="padding:10px;">
+		<h1>Library</h1>
+	</div>
+
+<p>
+	{% if books %}
+	{% for book in books %}
+	<a href="{% url 'library:detail' book.id %}">{{book.title}}:</a> Genre: {{book.genre}} year: {{book.written}} by: <a href="{% url 'library:authordetail' book.author.id %}">{{book.author}}</a><br>
+
+	<a href="{% url 'library:update' book.id %}">Click here to update entry</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="{% url 'library:delete' book.id %}">Click here to delete entry</a><br><br>
+	{% endfor %}
+	{% else %}
+
+	<p>No books have been added yet!</p>
+	{% endif %}
+
+
+	<br><br><a href="{% url 'library:addbook' %}">Add a book</a><br>
+	<a href="{% url 'library:addauthor' %}">Add an author</a>
+</p>
+{% endblock content %}
+</body>
+</html>
