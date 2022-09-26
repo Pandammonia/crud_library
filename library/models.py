@@ -41,6 +41,7 @@ class Book(models.Model):
 	author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
 	description = models.TextField(null = True)
 	slug = models.SlugField(null=True)
+	price = models.DecimalField(max_digits=4, decimal_places=2, null=True)
 
 	def get_absolute_url(self):
 		return reverse("library:detail", kwargs={'slug' : self.slug })

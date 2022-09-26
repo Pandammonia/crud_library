@@ -3,10 +3,27 @@ from .models import Book, Author
 from .forms import BookForm, AuthorForm
 
 def index(request):
+	request.session.set_test_cookie()
+	if request.session.test_cookie_worked():
+		print("Test worked!")
+		request.session.delete_test_cookie()
 	author = Author.objects.all()
 	books = Book.objects.filter(status='available') #Only books with available set in admin are shown
 	context = {'books':books, 'author':author}
 	return render(request, 'library/index.html', context)
+
+def sort(request):
+	page = 'library:index'
+	books = Book.objects.all()
+	sort_by = request.GET.get('sort')
+	if sort_by == 'genre':
+		books = books.order_by('-genre')
+	elif sort_by == 'author':
+		books = books.order_by('-author')
+	num = len(books)
+	context = {'books':books, 'num':num}
+	return render(request, 'library/index.html')
+
 
 def addauthor(request):
 	form = AuthorForm(request.POST or None)
@@ -31,7 +48,7 @@ def addbook(request):
 	return render(request, "library/addbook.html", context)
 
 def bookdetails(request, slug):
-	book = Book.objects.get(id=slug)
+	book = Book.objects.get(id=slug)	
 	context = {'book':book}
 	return render(request, "library/detail.html", context)
 

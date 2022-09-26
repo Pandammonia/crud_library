@@ -13,6 +13,18 @@
 	</div>
 
 <p>
+	<!--
+	<button type="submit" method="POST">Filter By Date</button>
+	<form action="{% url 'library:sort' %}">
+	<span>Sort by:</span>
+	<select name="sort">
+		<option value="genre">Genre</option>
+		<option value="author">Author</option>
+	</select>
+</form>
+ -->
+</p>
+<p>
 	{% if books %}
 	{% for book in books %}
 	<a href="{% url 'library:detail' book.id %}">{{book.title}}:</a> Genre: {{book.genre}} year: {{book.written}} by: <a href="{% url 'library:authordetail' book.author.id %}">{{book.author}}</a><br>

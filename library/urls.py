@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('addbook/', views.addbook, name='addbook'),
     path('addauthor/', views.addauthor, name='addauthor'),
+    path('sort/', views.sort, name='sort'),
     path('<slug:slug>/', views.bookdetails, name='detail'),
     path('<slug:slug>/delete/', views.bookdelete, name='delete'),
     path('<slug:slug>/update/', views.bookupdate, name='update'),
