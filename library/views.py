@@ -13,17 +13,19 @@ def index(request):
 	return render(request, 'library/index.html', context)
 
 def sort(request):
-	page = 'library:index'
 	books = Book.objects.all()
-	sort_by = request.GET.get('sort')
+	sort_by = request.POST.get('sort')
 	if sort_by == 'genre':
 		books = books.order_by('-genre')
+		context = {'books':books}
+		return HttpResponseRedirect(request, 'library/index.html', context)
 	elif sort_by == 'author':
 		books = books.order_by('-author')
+		context = {'books':books}
+		return HttpResponseRedirect(request, 'library/index.html', context)
 	num = len(books)
 	context = {'books':books, 'num':num}
 	return render(request, 'library/index.html')
-
 
 def addauthor(request):
 	form = AuthorForm(request.POST or None)
@@ -40,15 +42,15 @@ def addbook(request):
 	if form.is_valid():
 		form.save()
 		instance = form.save()
-		id = instance.id
-		return redirect('library:detail', id=id)
+		slug = instance.slug
+		return redirect('library:detail', slug=slug)
 	else:
 		form = BookForm()
 	context = {'form':form}
 	return render(request, "library/addbook.html", context)
 
 def bookdetails(request, slug):
-	book = Book.objects.get(id=slug)	
+	book = Book.objects.get(slug=slug)	
 	context = {'book':book}
 	return render(request, "library/detail.html", context)
 
@@ -75,3 +77,17 @@ def authordetail(request, slug):
 	context = {'author':author, 'books':books}
 	return render(request, "library/authordetail.html", context)
 
+def search(request):
+		return render(request, 'library/search.html')
+
+def searchresults(request):
+	if request.method == "POST":
+		search_term = request.POST.get('search_term', None)
+		try:
+			results = Book.objects.filter(title=search_term)
+			context = {'results': results}
+			return render(request, 'library/searchresults.html', context)
+		except BookDoesNotExist:
+						return HttpResponse("No book with that title!")	
+	else:
+		return HttpResponse("Error")

@@ -47,8 +47,9 @@ class Book(models.Model):
 		return reverse("library:detail", kwargs={'slug' : self.slug })
 
 	def save(self, *args, **kwargs):
-		if not self.id:
+		if not self.slug:
 			self.slug = slugify(self.title)
+		return super().save(*args, **kwargs)
 
 	def __str__(self):
 		return self.title
