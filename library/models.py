@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from taggit.managers import TaggableManager
 
 class Author(models.Model):
 	name = models.CharField(max_length=100)
@@ -42,6 +43,7 @@ class Book(models.Model):
 	description = models.TextField(null = True)
 	slug = models.SlugField(null=True)
 	price = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+	tags = TaggableManager()
 
 	def get_absolute_url(self):
 		return reverse("library:detail", kwargs={'slug' : self.slug })

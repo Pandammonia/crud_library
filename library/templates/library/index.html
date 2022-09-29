@@ -13,26 +13,6 @@
 	</div>
 
 <p>
-	
-	<!---<button type="submit" method="POST">Filter By Date</button>
-	<form method="POST" action=sort/>
-	<span>Sort by:</span>
-	<select name="sort" action="sort/">
-		<option value="genre">Genre</option>
-		<option value="author">Author</option>
-	</select>
-</form>
---->
-
-<form method="POST" action="filter/">
-	<select class="orderby pull-right push-bottom" name="orderby" onChange="location = this.options[this.selectedIndex].value">>
-		<option value="{% url 'library:filter' genre }%">Genre</option>
-		<option value="{% url 'library:filter author }%">Author</option>
-		</select>
-		</form> 
-
-</p>
-<p>
 	Click <a href="{% url 'library:search' %}">here</a> to search! <br><br>
 	{% if books %}
 	{% for book in books %}

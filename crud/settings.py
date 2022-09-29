@@ -18,6 +18,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 # Application definition
 
 INSTALLED_APPS = [
+    'taggit',
     'library',
     'django.contrib.admin',
     'django.contrib.auth',
